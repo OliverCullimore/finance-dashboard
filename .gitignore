@@ -1,0 +1,27 @@
+# IDE files
+.idea/*
+.run/*
+.vscode/*
+
+# Exclude config & other files
+.env
+.env.*
+!.env.example
+config.json
+.DS_Store
+Thumbs.db
+
+# Python
+.venv
+**/__pycache__
+**/*.pyc
+
+# Cache
+/.cache
+/cache
+
+# Logs
+/logs/*
+
+# Always include .gitkeep
+!.gitkeep
