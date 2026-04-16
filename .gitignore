@@ -16,6 +16,9 @@ Thumbs.db
 **/__pycache__
 **/*.pyc
 
+# NodeJS
+node_modules
+
 # Cache
 /.cache
 /cache
