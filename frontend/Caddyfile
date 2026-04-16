@@ -1,0 +1,21 @@
+:80, :443 {
+    # Serve static files
+    root * /app
+
+    # Enable compression
+    encode gzip
+
+    # Security headers
+#    header {
+#        Strict-Transport-Security "max-age=31536000; includeSubDomains"
+#        X-XSS-Protection "1; mode=block"
+#        X-Frame-Options "DENY"
+#        Content-Security-Policy "default-src 'self'"
+#    }
+
+	# Backend proxy
+	reverse_proxy /api/* backend:80
+
+    # File server configuration
+    file_server
+}
