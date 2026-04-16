@@ -17,6 +17,7 @@ services:
       - CLERK_JWT_KEY=${CLERK_JWT_KEY}
       - GOCARDLESS_API_KEY_ID=${GOCARDLESS_API_KEY_ID}
       - GOCARDLESS_API_KEY_SECRET=${GOCARDLESS_API_KEY_SECRET}
+      - OPENFIGI_API_KEY=${OPENFIGI_API_KEY}
     depends_on:
       postgres:
         condition: service_healthy

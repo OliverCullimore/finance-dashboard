@@ -22,13 +22,12 @@ def sync():
         industry_service = IndustryService(db)
 
         # Get assets
-        assets = asset_service.get_all_for_sync()
+        assets = asset_service.get_all_for_yahoo_finance_sync()
         for asset in assets:
             logger.info(f"Looking up asset {asset.symbol} {asset.isin}")
-
-            # Try Yahoo first
             try:
-                yh_ticker = yf_client.Ticker(asset.symbol)
+                normalized_symbol = asset.symbol.split("_")[0]
+                yh_ticker = yf_client.Ticker(normalized_symbol)
                 yh_ticker_info = yh_ticker.info or {}
                 sector = yh_ticker_info.get("sector")
                 industry = (

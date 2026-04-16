@@ -9,7 +9,7 @@ class Trading212Client:
         self.basic_auth = base64.b64encode(f"{api_key}:{api_secret}".encode('utf-8')).decode('utf-8')
 
     def make_request(self, path: str):
-        url = f"https://live.trading212.com/{path}"
+        url = f"https://live.trading212.com{path}"
         headers = {"Authorization": f"Basic {self.basic_auth}"}
         response = requests.get(url, headers=headers)
         return response

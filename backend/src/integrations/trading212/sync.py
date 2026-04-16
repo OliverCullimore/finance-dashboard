@@ -70,7 +70,7 @@ def sync():
                 for position in position_data:
                     mapped = map_position(position)
                     new_asset = AssetBase(
-                        symbol=mapped["symbol"],
+                        trading212_symbol=mapped["symbol"],
                         isin=mapped["isin"],
                         name=mapped["name"],
                         type=mapped["type"],

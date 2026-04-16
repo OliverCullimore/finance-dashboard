@@ -59,5 +59,8 @@ class Settings(BaseSettings):
     GOCARDLESS_API_KEY_ID: str
     GOCARDLESS_API_KEY_SECRET: str
 
+    # OpenFIGI
+    OPENFIGI_API_KEY: str
+
 
 settings = Settings()  # type: ignore

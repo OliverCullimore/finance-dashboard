@@ -21,7 +21,8 @@ class Asset(Base):
     __tablename__ = "assets"
 
     id = Column(Integer, primary_key=True, index=True)
-    symbol = Column(String, nullable=False)
+    symbol = Column(String)
+    trading212_symbol = Column(String)
     isin = Column(String, nullable=False)
     name = Column(String, nullable=False)
     type = Column(AssetTypeEnum, nullable=False)
