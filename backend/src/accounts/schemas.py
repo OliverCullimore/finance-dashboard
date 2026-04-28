@@ -5,6 +5,7 @@ from pydantic import BaseModel
 
 
 class AccountBase(BaseModel):
+    connection_id: int | None = None
     source: str
     external_id: str
     name: str

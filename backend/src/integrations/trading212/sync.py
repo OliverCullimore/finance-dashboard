@@ -49,6 +49,7 @@ def sync():
             existing = account_service.get_by_external_id(Source.TRADING212, mapped["external_id"])
             if not existing:
                 new_account = AccountBase(
+                    connection_id=connection.id,
                     source=mapped["source"],
                     external_id=mapped["external_id"],
                     name=mapped["name"],
