@@ -16,9 +16,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - dockerfile: ./backend/Dockerfile
+          - context: ./backend/
             image: ${{ github.repository }}-backend
-          - dockerfile: ./frontend/Dockerfile
+          - context: ./frontend/
             image: ${{ github.repository }}-frontend
     steps:
       - name: Checkout
@@ -51,8 +51,8 @@ jobs:
         uses: docker/build-push-action@v7
         with:
           builder: ${{ steps.buildx.outputs.name }}
-          context: .
-          file: ${{ matrix.dockerfile }}
+          context: ${{ matrix.context }}
+          file: ./Dockerfile
           push: true
           #platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x
           #platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
