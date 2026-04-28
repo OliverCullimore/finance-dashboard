@@ -52,7 +52,7 @@ jobs:
         with:
           builder: ${{ steps.buildx.outputs.name }}
           context: ${{ matrix.context }}
-          file: ./Dockerfile
+          file: ${{ matrix.context }}Dockerfile
           push: true
           #platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x
           #platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
@@ -66,5 +66,5 @@ jobs:
         with:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
-          repository: ${{ github.repository }}
+          repository: ${{ matrix.image }}
           readme-filepath: ./README.md
