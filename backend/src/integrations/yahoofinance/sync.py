@@ -38,12 +38,7 @@ def sync():
             sector = sector_service.upsert(new_sector)
 
             # Ensure industry exists (normalize first)
-            industry = (
-                industry.lower()
-                .replace("—", "-")
-                .replace(" ", "_")
-                .replace("-", "_")
-            )
+            industry = industry.replace("—", "-")
             new_industry = IndustryBase(name=industry)
             industry = industry_service.upsert(new_industry)
 
