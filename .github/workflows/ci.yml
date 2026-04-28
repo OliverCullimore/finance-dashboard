@@ -12,6 +12,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - dockerfile: ./backend/Dockerfile
+            image: ${{ github.repository }}-backend
+          - dockerfile: ./frontend/Dockerfile
+            image: ${{ github.repository }}-frontend
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -23,7 +31,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v6
         with:
-          images: ${{ github.repository }}
+          images: ${{ matrix.image }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v4
@@ -44,7 +52,7 @@ jobs:
         with:
           builder: ${{ steps.buildx.outputs.name }}
           context: .
-          file: ./Dockerfile
+          file: ${{ matrix.dockerfile }}
           push: true
           #platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x
           #platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
@@ -53,10 +61,10 @@ jobs:
           build-args: |
             BUILD_VERSION=$TAG
 
-#      - name: Update Docker Hub Repository Description
-#        uses: peter-evans/dockerhub-description@v5
-#        with:
-#          username: ${{ secrets.REGISTRY_USERNAME }}
-#          password: ${{ secrets.REGISTRY_PASSWORD }}
-#          repository: ${{ github.repository }}
-#          readme-filepath: ./README.md
+      - name: Update Docker Hub Repository Description
+        uses: peter-evans/dockerhub-description@v5
+        with:
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+          repository: ${{ github.repository }}
+          readme-filepath: ./README.md
