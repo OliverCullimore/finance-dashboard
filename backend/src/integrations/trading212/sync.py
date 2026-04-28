@@ -6,7 +6,7 @@ from src.connections.service import ConnectionService
 from src.core.database import SessionLocal
 from src.core.logging import logger
 from src.core.utils import Source, decrypt
-from src.integrations.trading212.client import Trading212Client
+from src.integrations.trading212.client import Trading212Client, get_symbol_from_ticker
 from src.integrations.trading212.mapper import map_account, map_dividend, map_order, map_position, map_transaction
 from src.transactions.schemas import TransactionBase
 from src.transactions.service import TransactionService
@@ -70,6 +70,7 @@ def sync():
                 for position in position_data:
                     mapped = map_position(position)
                     new_asset = AssetBase(
+                        symbol=get_symbol_from_ticker(mapped["symbol"]),
                         trading212_symbol=mapped["symbol"],
                         isin=mapped["isin"],
                         name=mapped["name"],

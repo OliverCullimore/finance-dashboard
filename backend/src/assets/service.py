@@ -12,9 +12,6 @@ class AssetService:
     def get_all(self):
         return self.db.query(Asset).all()
 
-    def get_all_for_openfigi_sync(self):
-        return self.db.query(Asset).filter(Asset.symbol == null()).all()
-
     def get_all_for_yahoo_finance_sync(self):
         return self.db.query(Asset).filter(
             and_(
@@ -36,10 +33,7 @@ class AssetService:
         return self.db.query(Asset).filter(Asset.isin == isin).first()
 
     def upsert(self, data: AssetBase):
-        asset = self.db.query(Asset).filter(
-            Asset.isin == data.isin,
-            Asset.type == data.type
-        ).first()
+        asset = self.get_by_isin(data.isin)
 
         if asset:
             for field, value in data.model_dump(exclude_unset=True).items():

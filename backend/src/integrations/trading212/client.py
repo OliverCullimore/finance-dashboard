@@ -3,6 +3,33 @@ from urllib.parse import parse_qs
 
 import requests
 
+from src.core.logging import logger
+
+
+def get_symbol_from_ticker(ticker: str) -> str:
+    # Remove suffixes
+    symbol = ticker.split("_")[0]
+    # LSE format
+    if symbol.endswith("l"):
+        symbol = f"{symbol[:-1]}.L"
+    # DE format
+    if symbol.endswith("d"):
+        symbol = f"{symbol[:-1]}.DE"
+    # FR format
+    if symbol.endswith("p"):
+        symbol = f"{symbol[:-1]}.FR"
+    # IT format
+    if symbol.endswith("m"):
+        symbol = f"{symbol[:-1]}.IT"
+    # NL format
+    if symbol.endswith("a"):
+        symbol = f"{symbol[:-1]}.NL"
+    # Check for unknown exchange suffixes
+    if symbol != symbol.upper():
+        logger.error(f"Unknown exchange suffix {symbol}")
+    # Return plain format symbol
+    return symbol
+
 
 class Trading212Client:
     def __init__(self, api_key: str, api_secret: str):

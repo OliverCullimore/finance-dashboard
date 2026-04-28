@@ -9,3 +9,5 @@ class AssetBase(BaseModel):
     type: str = None
     current_price: float = None
     currency: str = None
+    sector_id: int = None
+    industry_id: int = None
